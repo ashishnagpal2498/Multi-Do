@@ -8,6 +8,7 @@ body {
 }
 html{
     --text-wt-clr: #fff;
+    scroll-behavior: smooth;
 }
 /* Common classes */
 .heading {
@@ -53,10 +54,22 @@ p {
 .nav-item {
     flex: 1 1 10%;
 }
+.nav-item a {
+    text-decoration: none;
+    color: var(--text-wt-clr);
+    font-family: 'Quicksand', sans-serif;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 3px;
+    transition: border 0.4s;
+    font-weight: 500;
+}
+.nav-item a:hover {
+    border-bottom: 2px solid black;
+}
 /**/
 
 .introduction {
-    background-image: linear-gradient(to bottom, rgba(255,255,255,0.5),rgba(255,255,255,0)),url("./todolist_background.jpg");
+    background-image: url("./todolist_background.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
@@ -73,11 +86,13 @@ p {
 .what-we-do {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     padding: 20px 0;
 }
 .card {
     flex-basis: 20%;
-    padding: 0 20px;
+    max-width: 20%;
+    padding: 20px;
 
 }
 .card-content {
@@ -144,10 +159,11 @@ p {
     justify-content: center;
     align-items: center;
     top: 2px;
+    padding: 0 10px;
 }
 .back-inner {
     flex-basis: 100%;
-    font-size: 20px;
+    font-size: 24px;
 }
 
 /* About Us section*/
@@ -233,9 +249,9 @@ p {
     flex-basis: 50%;
 }
 .btn-start {
-
     margin: 0 auto;
 }
+
 /**/
 
 .footer {
@@ -274,4 +290,17 @@ p {
     letter-spacing: 2px;
     padding: 10px 0;
     color: var(--text-wt-clr);
+}
+
+@media screen and (max-width: 768px) {
+    .card{
+        flex-basis: 50%;
+        max-width: 50%;
+    }
+}
+@media screen and (max-width: 576px) {
+    .card {
+        flex-basis: 100%;
+        max-width: 100%;
+    }
 }
