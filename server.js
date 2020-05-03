@@ -9,6 +9,8 @@ const api = {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+app.use(express.static(path.join(__dirname,'public_static')));
+
 app.use('/mysql', api.mySqlRoute);
 
 

@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Todolist</title>
-    <script src="https://code.jquery.com/jquery-3.5.0.js" integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
-    <script src="todoList.js"></script>
+    <title>Login</title>
+    <script src="jquery.3.5.0.min.js"></script>
     <script src="login.js"></script>
     <style>
         .login-container {
@@ -22,6 +21,7 @@
             font-size: 20px;
             margin: 10px 0;
             padding: 10px;
+            display: block;
         }
         .btn {
             border: none;
@@ -32,12 +32,22 @@
             font-size: 20px;
             background-color: #66FF99;
         }
+        .error-message {
+            font-size: 13px;
+            display: none;
+            color: red;
+        }
     </style>
 </head>
 <body>
 <div class="login-container">
-    <input placeholder="Username" name="username" type="text" id="user">
-    <button class="btn" id="login">Login</button>
+    <h2>Login/ SignUp</h2>
+    <div class="error-message" id="error">
+
+    </div>
+    <input placeholder="Username" name="username" type="text" id="user" />
+    <a href="" onclick="signUpLogin(this)" current-state = "login" id="loginSignup">New User, signUp</a>
+    <button class="btn" id="loginSignupBtn" type="button" onclick="buttonClick()">Login</button>
 </div>
 </body>
 </html>

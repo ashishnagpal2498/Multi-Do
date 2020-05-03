@@ -1,28 +1,46 @@
 
 //we take this as async but - return - toh wo
+const db = localStorage.getItem("db") || "";
+const userId = localStorage.getItem("userId") || "";
 function getAlltodos(cb)
 {
-    $.get('/todos/',(data)=>{
-        cb(data);
-    })
+    $.get(`/${db}/todos/${userId}`,"json")
+        .done((data)=>{
+            cb(data);
+        })
+        .fail((error)=>{
+            alert(error.responseJSON);
+        })
 }
 
 function addNewTodo(task,cb)
 {
-    $.post('/todos/',
+    $.post(`/${db}/todos/${userId}`,
         {task:task
             ,userId:localStorage.getItem('userid')},
-        (data)=>{
-            cb(data);
+        "json")
+        .done((data)=>{
+            cb(data.result);
+        })
+        .fail((error)=>{
+            alert(error.responseJSON)
         })
 }
 
 function setTodoDone(todoId, done, cb) {
-    $.post(`/todos/${todoId}`,
-        {done:done},
-        (data)=>{
+    console.log(typeof done)
+    $.ajax({
+        url: `/${db}/todos/${userId}`,
+        type: 'PUT',
+        data: {done,
+            todoId},
+        success:  (data)=>{
             cb(data);
-        })
+        },
+        fail: () => {
+            console.log('Fail')
+        }
+    });
 }
 function setDone(el)
 {   //console.log(el);
@@ -51,9 +69,13 @@ $(function () {
 
     window.refreshTodos = (todos)=> {
         //I need to create an element and push into todolistDiv
+        console.log(todos);
         todolistDiv.empty() //Todolist div -
-
-
+        if(todos.length < 1){
+            console.log('Empty list')
+            todolistDiv.append("Todolist empty");
+            return true;
+        }
         for(todo of todos)
         {
             //Since we need to set value of check box if it is true in database -
@@ -80,7 +102,7 @@ $(function () {
 
     addTaskBtn.click(()=>{
         addNewTodo(newTaskBox.val(),(todos)=>{
-            refreshTodos(todos);
+            getAlltodos(refreshTodos);
         })
     })
 

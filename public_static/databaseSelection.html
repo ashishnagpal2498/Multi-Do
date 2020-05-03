@@ -11,18 +11,18 @@
         <div class="pop-up-body">
             <div class="pop-up-content">
                 <ul class="pop-up-list">
-                    <li><a href="">
+                    <li><a href="" onclick="dbSelect('mysql')">
                         <img alt="mySql" src="assets/mysqlLogo.png">
                         <p>Continue with MySQL</p>
                     </a> </li>
                     <li>
-                        <a href="">
+                        <a href="" onclick="dbSelect('mongoDb')">
                             <img alt="mongoDB" src="assets/mongodbLogo2.png">
                             <p> Continue with MongoDB</p>
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="" onclick="dbSelect('sequelize')">
                             <img alt="sequelize" src="assets/sequelizeLogo2.png">
                             <p> Continue with Sequelize</p>
                         </a>
@@ -34,8 +34,10 @@
 </div>
 </body>
 <script>
-    function dbSelect() {
-        
+    function dbSelect(db) {
+        event.preventDefault();
+        localStorage.setItem("db",db);
+        window.location = "./login.html";
     }
 </script>
 </html>
