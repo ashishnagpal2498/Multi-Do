@@ -79,7 +79,7 @@ $(function () {
         {
             //Since we need to set value of check box if it is true in database -
 
-            let chechBox = $(` <input data-todoid = "${todo.id}" onchange="setDone(this)" type="checkbox" class="col-1 todo-done">`)
+            let chechBox = $(` <input data-todoid = "${todo.id || todo._id}" onchange="setDone(this)" type="checkbox" class="col-1 todo-done">`)
             if(todo.done)
             {
                 chechBox.prop('checked',true)

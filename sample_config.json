@@ -1,0 +1,19 @@
+{
+  "mysql": {
+    "host": "localhost",
+    "database": "dbXX",
+    "user" : "dbuserXX",
+    "password": "passXX"
+  },
+  "Sequelize" : {
+    "host": "localhost",
+    "database": "XXXX",
+    "user": "XXXXX",
+    "password": "XXXX",
+    "dialect" : "mysql"
+  },
+  "MongoDb" : {
+    "user": "XXXX",
+    "password" : "XXXX"
+  }
+}

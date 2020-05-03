@@ -35,7 +35,7 @@ function buttonClick(){
 
                         //Set the value into localStorage
                         localStorage.setItem('username',username);
-                        localStorage.setItem('userId',data.result.id);
+                        localStorage.setItem('userId',data.result.id || data.result._id);
                         console.log("data --- ",data);
                         window.location = './todolist.html';
                 }
