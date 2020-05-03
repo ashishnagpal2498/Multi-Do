@@ -9,21 +9,20 @@ function getAlltodos(cb)
             cb(data);
         })
         .fail((error)=>{
-            alert(error.responseJSON);
+            alert(error.responseJSON.message);
         })
 }
 
 function addNewTodo(task,cb)
 {
     $.post(`/${db}/todos/${userId}`,
-        {task:task
-            ,userId:localStorage.getItem('userid')},
+        {task},
         "json")
         .done((data)=>{
             cb(data.result);
         })
         .fail((error)=>{
-            alert(error.responseJSON)
+            alert(error.responseJSON.message)
         })
 }
 
