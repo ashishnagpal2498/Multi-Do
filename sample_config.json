@@ -1,4 +1,5 @@
 {
+  "fileName": "rename file to config.json",
   "mysql": {
     "host": "localhost",
     "database": "dbXX",

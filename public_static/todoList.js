@@ -42,13 +42,14 @@ function setTodoDone(todoId, done, cb) {
     });
 }
 function setDone(el)
-{   //console.log(el);
+{
     //Making a elemnt Jquery
     let todo_id = $(el).attr('data-todoid')
     console.log(todo_id)
     if(el.checked)
     {
         setTodoDone(todo_id,true,(todos)=>{
+            // Show actual result of what is stored on backend
             refreshTodos(todos);
         })
     }
@@ -61,38 +62,106 @@ function setDone(el)
 
 }
 
+function closeModal() {
+    let modal = $('#deleteModal')
+    modal.css("display","none");
+}
+
+function deleteTodo(id) {
+    $.ajax({
+        url: `${db}/todo/${userId}`,
+        method: "delete",
+        data: {id}
+    })
+        .done((data) => {
+            refreshTodos(data);
+        })
+        .fail((err)=>{
+            alert(err.responseJSON.message);
+        })
+}
+
+function deleteItemConfirm(item,value){
+    let tag = $(item);
+    console.log(tag);
+    let modal = $('#deleteModal')
+    let deleteTask = $('#delete-task');
+    deleteTask.empty();
+    deleteTask.append(value)
+    modal.css("display","block");
+    console.log(tag.attr("data-todoid"));
+    let buttonSucces = $('#button-success');
+    buttonSucces.attr("onclick",`deleteTodo(${tag.attr("data-todoid")})`);
+}
+
+function logoutUser(){
+    localStorage.removeItem("username");
+    localStorage.removeItem("userId");
+    window.location = "./login.html"
+}
+
 $(function () {
+    let user = localStorage.getItem("username") || "";
+    let errorModal = $('#error-Modal')
+    let errorLink = $('#error-link')
+    let errorText = $('#error-text')
+    if(!userId || !user)
+    {
+        errorModal.css('display','block')
+        errorText.empty();
+        errorLink.empty();
+        errorText.append("User not Logged In ");
+        errorLink.append("Click Here to Login");
+        errorLink.attr("href","./login.html")
+        return false;
+    }
+    else if(!db){
+        errorModal.css('display','block')
+        errorText.empty();
+        errorLink.empty();
+        errorText.append("Database not selected");
+        errorLink.append("Click Here to select Database");
+        errorLink.attr("href","./databaseSelection.html")
+    }
     let newTaskBox = $('#newtask')
     let addTaskBtn = $('#addtask')
     let todolistDiv = $('#todolist')
-
+    let emptyListDiv = $('#empty-list')
+    let loader = $('#loader')
+    let database = $('#database')
+    let username = $('#username')
+    database.empty();
+    username.empty();
+    database.append(db);
+    username.append(user);
     window.refreshTodos = (todos)=> {
         //I need to create an element and push into todolistDiv
+        emptyListDiv.css("display","none")
         console.log(todos);
+        loader.css("display","block")
         todolistDiv.empty() //Todolist div -
         if(todos.length < 1){
-            console.log('Empty list')
-            todolistDiv.append("Todolist empty");
+           emptyListDiv.css("display","block");
+            loader.css("display","none");
             return true;
         }
         for(todo of todos)
         {
             //Since we need to set value of check box if it is true in database -
-
-            let chechBox = $(` <input data-todoid = "${todo.id || todo._id}" onchange="setDone(this)" type="checkbox" class="col-1 todo-done">`)
+            let chechBox = $(` <input data-todoid = "${todo.id || todo._id}" onchange="setDone(this)" type="checkbox" >`)
             if(todo.done)
             {
                 chechBox.prop('checked',true)
             }
 
-
-            let todoItem = $(`
-            <div class="row col-12 mt-2 mb-2 todoitem">
-            <div class="col-6">${todo.task}</div>
-        </div>`)
-            todoItem.prepend(chechBox)
+           let todoItem = $(`<li><p>${todo.task}</p></li>`)
+           let deleteBtn = $(`<div class="icons"><i class="fa fa-trash" data-todoid = "${todo.id || todo._id}" onclick="deleteItemConfirm(this,'${todo.task}')"></i>
+                </div>`);
+            todoItem.prepend(chechBox);
+            todoItem.append(deleteBtn);
             todolistDiv.prepend(todoItem)
         }
+        loader.css("display","none")
     }
 
     getAlltodos((todos)=>{
@@ -101,6 +170,7 @@ $(function () {
 
     addTaskBtn.click(()=>{
         addNewTodo(newTaskBox.val(),(todos)=>{
+            newTaskBox.val("");
             getAlltodos(refreshTodos);
         })
     })

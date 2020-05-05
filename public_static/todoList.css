@@ -1,0 +1,228 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.container {
+    padding: 2em;
+    position: relative;
+}
+.sub2 {
+    font-size: 20px;
+    letter-spacing: 1.5px;
+    padding-left: 200px;
+}
+.user-icon {
+    position: absolute;
+    right: 1.5em;
+    top: 1em;
+    font-size: 20px;
+    font-family: 'Quicksand', sans-serif;
+}
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    left: 0;
+    cursor: pointer;
+    padding: 20px;
+    opacity: 0;
+    font-size: 16px;
+    color: white;
+    background-color: #111111;
+    visibility: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    transition: all 0.4s;
+}
+.user-icon:hover .dropdown-menu{
+    visibility: visible;
+    opacity: 1;
+}
+.username {
+    margin: 0 10px;
+}
+.todolist-outer {
+    box-shadow: 0 0 6px rgba(0,0,0,0.2);
+    min-height: 300px;
+    position: relative;
+    margin-top: 10px;
+    padding: 10px 0 50px;
+}
+.empty-list {
+    font-size: 2em;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    opacity: 0.7;
+}
+.loader {
+    border-radius: 100%;
+    border: 5px solid #f5f5f5;
+    border-top: 5px solid black;
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    animation: rotate 1s linear infinite;
+    display: none;
+}
+.todolist-heading-add-container{
+    display: flex;
+    padding: 20px 20px 0;
+    border-bottom: 1px solid grey;
+    align-items: center;
+}
+.todolist-heading-add-container h3{
+    flex-basis: 40%;
+}
+.add-item {
+    flex-basis: 60%;
+}
+.input-div {
+    position: relative;
+    width: 70%;
+    display: inline-block;
+}
+.input-div input{
+    background-color: #f5f5f5;
+    border: none;
+    border-bottom: 2px solid black;
+    display: inline-block;
+    width: 100%;
+    padding: 10px;
+}
+.input-div label{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    transition: all 0.2s;
+    opacity: 0.6;
+}
+.input-div input:focus{
+    outline: none;
+}
+.input-div input:not(:placeholder-shown) + label{
+    transform: translateY(-30px);
+    opacity: 1;
+}
+.add-item button{
+    background-color: black;
+    padding: 10px 20px;
+    margin: 0 20px;
+    border: none;
+    border-radius: 15px;
+    color: white;
+    width: 20%;
+    display: inline-block;
+}
+
+ul#todolist {
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+}
+ul#todolist li {
+    flex-basis: 100%;
+    display: flex;
+    padding: 15px 0;
+    align-items: center;
+    position: relative;
+    border-bottom: 0.5px solid black;
+    transition: all 0.2s;
+    overflow: hidden;
+}
+ul#todolist li:before{
+    content: '';
+    background-color: darkseagreen;
+    width: 5px;
+    height: 80%;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translate(-10px,-50%);
+}
+ul#todolist li input[type="checkbox"]{
+    flex-basis: 5%;
+}
+ul#todolist li p {
+    flex-basis: 80%;
+    margin: 0;
+}
+ul#todolist li .icons {
+    flex-basis: 15%;
+    color: red;
+    font-size: 20px;
+}
+ul#todolist li .icons i{
+    display: inline-block;
+    padding: 10px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.deleteModal {
+    background-color: rgba(0,0,0,0.3);
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    display: none;
+}
+.modal-inner {
+    width: 60%;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    border-radius: 20px;
+    background-color: white;
+    transform: translate(-50%,-30%);
+    padding: 20px;
+}
+.cross {
+    text-align: right;
+}
+.cancel-btn {
+    background-color: transparent;
+    margin: 0;
+    display: inline-block;
+    text-align: right;
+    padding: 10px;
+}
+.confirm-text {
+    font-family: 'Pacifico', sans-serif;
+    font-size: 20px;
+    text-align: center;
+    margin: 10px 0;
+}
+.confirm-text .task{
+    font-family: 'Arial',sans-serif;
+    margin: 20px 0;
+}
+.confirm-buttons {
+    text-align: center;
+    margin: 20px 0;
+}
+.confirm-buttons button{
+    display: inline-block;
+}
+.btn-success {
+    background-color: #66FF99;
+}
+.btn-danger {
+    background-color: firebrick;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(1deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

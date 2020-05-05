@@ -35,6 +35,9 @@ p {
     cursor: pointer;
     font-size: 20px;
 }
+.btn:focus{
+    outline: none;
+}
 /**/
 
 /* Header */
@@ -47,12 +50,17 @@ p {
     padding: 20px;
     z-index: 55;
     margin: 0;
+    justify-content: space-around;
 }
 .nav-logo {
-    flex: 1 1 40%;
+    flex: 1 1 30%;
+    max-width: 30%;
 }
 .nav-item {
-    flex: 1 1 10%;
+    flex: 1 1 15%;
+    max-width: 15%;
+    text-align: center;
+    font-size: 20px;
 }
 .nav-item a {
     text-decoration: none;
@@ -77,8 +85,7 @@ p {
 }
 #what-we-do {
     background-image: linear-gradient(to bottom,rgba(61,64,91,1),rgba(61,64,91,0.5));
-    padding: 4em 20px;
-    padding-top: 2em;
+    padding: 2em 20px 4em;
 }
 .what-we-do-heading {
     color: var(--text-wt-clr);

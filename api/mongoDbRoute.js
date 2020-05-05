@@ -2,7 +2,7 @@ const route = require('express').Router()
 const mongoDb = require('mongodb')
 const MongoClient = mongoDb.MongoClient;
 const dbConfig = require('../config').MongoDb
-const uri = `mongodb+srv://${dbConfig.user}:${dbConfig.password}@cluster0-vpyrx.mongodb.net/test?retryWrites=true&w=majority`;
+const uri = "mongodb://localhost:27017/todoDB";
 const client = new MongoClient(uri, { useNewUrlParser: true });
 
 let todoCollection, UserCollection;
