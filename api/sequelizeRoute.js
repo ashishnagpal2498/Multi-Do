@@ -3,6 +3,7 @@ const route = require('express').Router();
 //Database ke liye -
 const Todos = require('../models/sequelizeDB').module.Todos;
 const User = require('../models/sequelizeDB').module.User;
+const responseFunction = require('../utils').responseFunction
 
 route.post('/user/signup',(req,res)=>{
    User.findOne({
@@ -11,11 +12,7 @@ route.post('/user/signup',(req,res)=>{
        if(result)
        {
             //User already exist
-           res.status(401).send({
-               error: false,
-               result: [],
-               message:"User Already Exist, Try login or choose another username"
-           })
+           res.status(401).send(responseFunction("User Already Exist, Try login or choose another username"))
        }
        else
        {
@@ -23,8 +20,8 @@ route.post('/user/signup',(req,res)=>{
                name:req.body.name
            },{
                returning :true
-           }) .then(users => res.send(users))
-               .catch(err=> console.log(err))
+           }).then(users => res.send(users))
+               .catch(err=> res.status(400).send(responseFunction("Some Error has Occurred")))
        }
    }).catch((err) =>{
        res.status(400).send(err);
@@ -63,8 +60,11 @@ route.get('/todos/:id',(req,res)=>{
     //Find all the todos and send
     Todos.findAll({
         //where clause
-    }).then((result)=> res.send(result))
-        .catch((err)=>{console.error(err)})
+        where:{
+            userId: req.params.id
+        }
+    }).then((result)=> res.status(200).send(result))
+        .catch((err)=>{console.error(err); res.status(400).send(err)})
 })
 
 route.post('/todos/:id',(req,res)=>{
@@ -113,7 +113,11 @@ route.put('/todos/:id',(req,res)=>{
             }
         })
         .then(()=>{
-            Todos.findAll({})
+            Todos.findAll({
+                where :{
+                    userId: req.params.id
+                }
+            })
                 .then(result => {
                     res.status(200).send(result)
 
@@ -123,9 +127,56 @@ route.put('/todos/:id',(req,res)=>{
                 message: " Cannot find todos"
             }))
             })
-        .catch((err)=> console.error(err))
+        .catch((err)=> {console.error(err);
+            res.status(400).send({
+                error: true,
+                result: err,
+                message: "Error in Updating Todo"
+            })
+        })
 })
 
+route.delete('/todos/:id',(req,res) => {
+    //Check if the value which is of Id is even correct or not
+    if(isNaN(parseInt(req.params.id)))
+    {
+        return res.status(404).send(
+           {
+                error: true,
+                result: null,
+                message: "The Id send is not correct"
+            })
+    }
+
+    Todos.destroy({
+            where: {
+                userId:req.params.id,
+                id: req.body.todoId
+            }
+        })
+        .then(()=>{
+            Todos.findAll({
+                where: {
+                    userId: req.params.id
+                }
+            })
+                .then(result => {
+                    res.status(200).send(result)
+
+                }).catch(err => res.status(400).send({
+                error: true,
+                result: err,
+                message: " Cannot find todos"
+            }))
+        })
+        .catch((err)=> {console.error(err);
+            res.status(400).send({
+                error: true,
+                result: err,
+                message: "Error in deleting Todo"
+            })
+        })
+})
 
 
 exports.route=route;

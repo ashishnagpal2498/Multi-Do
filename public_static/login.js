@@ -59,3 +59,21 @@ function buttonClick(){
         })
 
 }
+$(() => {
+    const db = localStorage.getItem("db") || "";
+    let errorModal = $('#error-Modal')
+    let errorLink = $('#error-link')
+    let errorText = $('#error-text')
+    let currentDb = $('#current-db');
+    if(!db){
+        errorModal.css('display','block')
+        errorText.empty();
+        errorLink.empty();
+        errorText.append("Database not selected");
+        errorLink.append("Click Here to select Database");
+        errorLink.attr("href","./databaseSelection.html");
+        return false;
+    }
+    currentDb.empty();
+  currentDb.append(db)
+})

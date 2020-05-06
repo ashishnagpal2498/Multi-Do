@@ -5,14 +5,31 @@
     <title>Login</title>
     <script src="jquery.3.5.0.min.js"></script>
     <script src="login.js"></script>
+    <link href="common.css" rel="stylesheet">
     <style>
+        body{
+            margin: 0;
+        }
+        .login-outer{
+            height: 100vh;
+            width: 100vw;
+            position: fixed;
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.2),rgba(0,0,0,0.5)) ,url("./assets/loginScreen.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
         .login-container {
             box-shadow: 0 0 6px rgba(0,0,0,0.3);
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            padding: 20px;
+            padding: 40px 30px;
+            background-color: white;
+        }
+        .login-btn {
+            margin: 20px auto;
+            background-color: #66FF99;
         }
         input {
             border: none;
@@ -23,31 +40,62 @@
             padding: 10px;
             display: block;
         }
-        .btn {
-            border: none;
-            padding: 15px 30px;
-            display: block;
-            margin: 10px auto;
-            cursor: pointer;
-            font-size: 20px;
-            background-color: #66FF99;
-        }
         .error-message {
             font-size: 13px;
             display: none;
             color: red;
         }
+        a{
+            display: block;
+            font-size: 18px;
+            margin: 20px 0;
+            text-decoration: none;
+        }
+        .current-db {
+            position: absolute;
+            word-spacing: 2px;
+            text-align: right;
+            top: 5px;
+            right: 10px;
+        }
+        .current-db span{
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        .change-db {
+            position: absolute;
+            bottom: 5px;
+            left: 10px;
+            text-decoration: none;
+            color: black;
+            opacity: 0.6;
+            font-size: 16px;
+        }
+        .change-db:hover {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
+<div class="login-outer">
 <div class="login-container">
+    <p class="current-db">Current Database <span id="current-db"></span></p>
     <h2>Login/ SignUp</h2>
     <div class="error-message" id="error">
-
     </div>
     <input placeholder="Username" name="username" type="text" id="user" />
-    <a href="" onclick="signUpLogin(this)" current-state = "login" id="loginSignup">New User, signUp</a>
-    <button class="btn" id="loginSignupBtn" type="button" onclick="buttonClick()">Login</button>
+    <a href="" onclick="signUpLogin(this)" current-state = "login" id="loginSignup">New User, signUp ?</a>
+    <button class="btn login-btn" id="loginSignupBtn" type="button" onclick="buttonClick()">Login</button>
+    <a class="change-db" href="./databaseSelection.html">Change Database</a>
+</div>
+</div>
+<div class="deleteModal" id="error-Modal">
+    <div class="modal-inner">
+        <div class="confirm-text">
+            <p id="error-text">User not Logged In </p>
+            <a id="error-link" href="./login.html">Click Here to Login</a>
+        </div>
+    </div>
 </div>
 </body>
 </html>

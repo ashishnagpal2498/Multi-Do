@@ -1,0 +1,93 @@
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+html{
+    --text-wt-clr: #fff;
+    scroll-behavior: smooth;
+}
+/* Common classes */
+.heading {
+    text-align: center;
+    font-size: 3em;
+    font-family: 'Quicksand', sans-serif;
+    letter-spacing: 2px;
+    color: rgb(68,68,68);
+    margin-bottom: 0.5em;
+}
+.sub-heading {
+    text-align: center;
+    padding-left: 50px;
+    font-style: italic;
+}
+p {
+    color: #111111;
+}
+.btn {
+    border: none;
+    padding: 15px 30px;
+    display: block;
+    margin: 10px 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+.btn:focus{
+    outline: none;
+}
+
+/*Delete Modal */
+
+.deleteModal {
+    background-color: rgba(0,0,0,0.3);
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    display: none;
+}
+.modal-inner {
+    width: 60%;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    border-radius: 20px;
+    background-color: white;
+    transform: translate(-50%,-30%);
+    padding: 20px;
+}
+.cross {
+    text-align: right;
+}
+.cancel-btn {
+    background-color: transparent;
+    margin: 0;
+    display: inline-block;
+    text-align: right;
+    padding: 10px;
+}
+.confirm-text {
+    font-family: 'Pacifico', sans-serif;
+    font-size: 20px;
+    text-align: center;
+    margin: 10px 0;
+}
+.confirm-text .task{
+    font-family: 'Arial',sans-serif;
+    margin: 20px 0;
+}
+.confirm-buttons {
+    text-align: center;
+    margin: 20px 0;
+}
+.confirm-buttons button{
+    display: inline-block;
+}
+.btn-success {
+    background-color: #66FF99;
+}
+.btn-danger {
+    background-color: firebrick;
+}
