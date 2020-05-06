@@ -96,17 +96,15 @@ route.post('/todos/:id',(req,res)=>{
         }));
 });
 
-route.put('/todos/:id',(req,res) => {
-    const done = req.body.done === 'true';
-    console.log(req.body)
-    console.log('done',done)
+route.delete('/todos/:id',(req,res) => {
     //Imp - use Object Id -
-    todoCollection.updateOne({
-        _id: mongoDb.ObjectId(req.body.todoId)},
-        { $set: {done:done}} )
+    todoCollection.deleteOne({
+        _id: mongoDb.ObjectId(req.body.todoId)
+        })
         .then((result) => {
-            console.log('result',result);
-         todoCollection.find().toArray(function (err2,result2) {
+         todoCollection.find({
+             userId: req.params.id
+         }).toArray(function (err2,result2) {
              if(err2) res.status(400).send({
                  error: true,
                  result: err2,
@@ -118,6 +116,32 @@ route.put('/todos/:id',(req,res) => {
          })
 
     }).catch((err) => res.status(400).send({error: true, result: err,message:""}))
+})
+
+route.put('/todos/:id',(req,res) => {
+    const done = req.body.done === 'true';
+    console.log(req.body)
+    console.log('done',done)
+    //Imp - use Object Id -
+    todoCollection.updateOne({
+            _id: mongoDb.ObjectId(req.body.todoId)},
+        { $set: {done:done}} )
+        .then((result) => {
+            console.log('result',result);
+            todoCollection.find({
+                userId: req.params.id
+            }).toArray(function (err2,result2) {
+                if(err2) res.status(400).send({
+                    error: true,
+                    result: err2,
+                    message: "Error"
+                })
+                else {
+                    return res.status(200).send(result2)
+                }
+            })
+
+        }).catch((err) => res.status(400).send({error: true, result: err,message:""}))
 })
 
 exports.route= route;

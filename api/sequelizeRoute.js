@@ -29,20 +29,22 @@ route.post('/user/signup',(req,res)=>{
 });
 
 route.post('/user/login',(req,res)=>{
+    console.log('re',req.body)
     User.findOne({
-        name: req.body.name
+       where: {name: req.body.name}
     }).then(result => {
+        console.log('result',result);
         if(!result)
         {
             console.log("No User Found")
-            res.status(401).send({
+            return res.status(401).send({
                 error: false,
                 result: [],
                 message:"User does not exist"
             })
         }
         else {
-            res.status(201).send({
+            return res.status(200).send({
              error: false,
              result,
              message: "User found Successfully"
