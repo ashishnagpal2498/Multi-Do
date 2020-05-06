@@ -27,7 +27,6 @@ function addNewTodo(task,cb)
 }
 
 function setTodoDone(todoId, done, cb) {
-    console.log(typeof done)
     $.ajax({
         url: `/${db}/todos/${userId}`,
         type: 'PUT',
@@ -36,8 +35,8 @@ function setTodoDone(todoId, done, cb) {
         success:  (data)=>{
             cb(data);
         },
-        fail: () => {
-            console.log('Fail')
+        fail: (err) => {
+           alert(err.responseJSON.message)
         }
     });
 }
@@ -45,7 +44,6 @@ function setDone(el)
 {
     //Making a elemnt Jquery
     let todo_id = $(el).attr('data-todoid')
-    console.log(todo_id)
     if(el.checked)
     {
         setTodoDone(todo_id,true,(todos)=>{
@@ -84,13 +82,11 @@ function deleteTodo(todoId) {
 
 function deleteItemConfirm(item,value){
     let tag = $(item);
-    console.log(tag);
     let modal = $('#deleteModal')
     let deleteTask = $('#delete-task');
     deleteTask.empty();
     deleteTask.append(value)
     modal.css("display","block");
-    console.log(tag.attr("data-todoid"));
     let buttonSucces = $('#button-success');
     buttonSucces.attr("onclick",`deleteTodo('${tag.attr("data-todoid")}')`);
 }
@@ -136,11 +132,9 @@ $(function () {
     database.append(db);
     username.append(user);
     window.refreshTodos = (todos)=> {
-        //I need to create an element and push into todolistDiv
         emptyListDiv.css("display","none")
-        console.log(todos);
         loader.css("display","block")
-        todolistDiv.empty() //Todolist div -
+        todolistDiv.empty();
         if(todos.length < 1){
            emptyListDiv.css("display","block");
             loader.css("display","none");
@@ -148,7 +142,6 @@ $(function () {
         }
         for(todo of todos)
         {
-            //Since we need to set value of check box if it is true in database -
             let chechBox = $(` <input data-todoid = "${todo.id || todo._id}" onchange="setDone(this)" type="checkbox" >`)
             if(todo.done)
             {

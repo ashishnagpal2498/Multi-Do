@@ -29,14 +29,11 @@ route.post('/user/signup',(req,res)=>{
 });
 
 route.post('/user/login',(req,res)=>{
-    console.log('re',req.body)
     User.findOne({
        where: {name: req.body.name}
     }).then(result => {
-        console.log('result',result);
         if(!result)
         {
-            console.log("No User Found")
             return res.status(401).send({
                 error: false,
                 result: [],
@@ -66,33 +63,28 @@ route.get('/todos/:id',(req,res)=>{
             userId: req.params.id
         }
     }).then((result)=> res.status(200).send(result))
-        .catch((err)=>{console.error(err); res.status(400).send(err)})
+        .catch((err)=> res.status(400).send(err))
 })
 
 route.post('/todos/:id',(req,res)=>{
-    //Add the todo into the table.
-    console.log(req.body,"prams",req.params)
     Todos.create({
         task: req.body.task,
         done: false,
         userId:req.params.id
         //this function has a second argument - returning
     }).then((result)=>{
-        console.log('res',result)
         res.status(201).send({
             error: false,
             result,
             message: "Todo added successfully"
         })
     })
-        .catch((err)=> {
-            console.log('Error')
+        .catch((err)=>
             res.status(400).send({
                 error: true,
                 result: err,
                 message: "Todo cannot be added"
-            })
-        })
+            }))
 })
 
 //To make the checkbox value -
@@ -129,13 +121,11 @@ route.put('/todos/:id',(req,res)=>{
                 message: " Cannot find todos"
             }))
             })
-        .catch((err)=> {console.error(err);
-            res.status(400).send({
+        .catch((err)=> res.status(400).send({
                 error: true,
                 result: err,
                 message: "Error in Updating Todo"
-            })
-        })
+            }))
 })
 
 route.delete('/todos/:id',(req,res) => {
@@ -171,13 +161,11 @@ route.delete('/todos/:id',(req,res) => {
                 message: " Cannot find todos"
             }))
         })
-        .catch((err)=> {console.error(err);
-            res.status(400).send({
+        .catch((err)=> res.status(400).send({
                 error: true,
                 result: err,
                 message: "Error in deleting Todo"
-            })
-        })
+            }))
 })
 
 

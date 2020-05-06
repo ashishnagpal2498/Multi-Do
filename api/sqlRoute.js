@@ -2,7 +2,6 @@ const route = require('express').Router();
 const sqlDB = require('../models/sqlDB');
 
 route.post('/user/signup',(req,res)=>{
-    console.log('SignUp - check Name ',req.body.name);
     sqlDB.checkUser(req.body.name,(checkUserResult)=>{
         if(checkUserResult.error)
         {
@@ -24,10 +23,8 @@ route.post('/user/signup',(req,res)=>{
 })
 
 route.post('/user/login',(req,res) => {
-    console.log('name ',req.body);
     //Check if the username already exist -
     sqlDB.checkUser(req.body.name,(checkUserResult)=>{
-        console.log('CheckUserResult',checkUserResult)
         if(checkUserResult.error)
         {
             res.status(400).send(checkUserResult)
@@ -46,7 +43,6 @@ route.post('/user/login',(req,res) => {
 
 route.get('/user',(req,res)=>{
     sqlDB.checkUser(req.body.name,(result) => {
-        console.log(result);
         res.send(result);
     })
 })
@@ -83,7 +79,6 @@ route.put('/todos/:id',(req,res) => {
 })
 
 route.delete('/todos/:id',(req,res) => {
-    console.log("Body and params ",req.body,req.params)
     sqlDB.deleteTodo(req.body.todoId,req.params.id,
         (result)=>{
             if(result.error) res.status(400).send(result);

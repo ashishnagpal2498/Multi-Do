@@ -8,7 +8,6 @@ const client = new MongoClient(uri, { useNewUrlParser: true });
 let todoCollection, UserCollection;
 
 client.connect(err => {
-    console.log('err',err);
     todoCollection = client.db("mongoTodo").collection("todos")
     UserCollection = client.db("mongoTodo").collection("user");
     // perform actions on the collection object
@@ -18,7 +17,6 @@ route.post('/user/login',(req,res)=>{
     UserCollection.find({name: req.body.name}).toArray(function (err,result){
         if(err) return res.status(400).send({error: true,result:err,message:"User cannot "})
         else {
-            console.log(result);
             if(result.length < 1 )
                return res.status(401).send({
                     error: false,
@@ -120,14 +118,11 @@ route.delete('/todos/:id',(req,res) => {
 
 route.put('/todos/:id',(req,res) => {
     const done = req.body.done === 'true';
-    console.log(req.body)
-    console.log('done',done)
     //Imp - use Object Id -
     todoCollection.updateOne({
             _id: mongoDb.ObjectId(req.body.todoId)},
         { $set: {done:done}} )
-        .then((result) => {
-            console.log('result',result);
+        .then(() => {
             todoCollection.find({
                 userId: req.params.id
             }).toArray(function (err2,result2) {
