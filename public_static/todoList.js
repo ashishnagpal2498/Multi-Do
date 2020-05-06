@@ -67,11 +67,12 @@ function closeModal() {
     modal.css("display","none");
 }
 
-function deleteTodo(id) {
+function deleteTodo(todoId) {
+    $('#deleteModal').css("display","none")
     $.ajax({
-        url: `${db}/todo/${userId}`,
+        url: `${db}/todos/${userId}`,
         method: "delete",
-        data: {id}
+        data: {todoId}
     })
         .done((data) => {
             refreshTodos(data);
@@ -91,7 +92,7 @@ function deleteItemConfirm(item,value){
     modal.css("display","block");
     console.log(tag.attr("data-todoid"));
     let buttonSucces = $('#button-success');
-    buttonSucces.attr("onclick",`deleteTodo(${tag.attr("data-todoid")})`);
+    buttonSucces.attr("onclick",`deleteTodo('${tag.attr("data-todoid")}')`);
 }
 
 function logoutUser(){

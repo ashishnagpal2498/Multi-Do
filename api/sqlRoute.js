@@ -12,15 +12,8 @@ route.post('/user/signup',(req,res)=>{
         else if(!checkUserResult.result) {
             // user will be created
             sqlDB.createUser(req.body.name,(resultCreate)=>{
-                // Error - case -
-                console.log(resultCreate);
-                sqlDB.checkUser(req.body.name,
-                    (resultCheck) => {
-                        console.log(resultCheck);
-                        res.status(200).send(resultCheck);
-                    })
+                res.status(200).send(resultCreate);
             });
-
         }
         else {
             // User Already Exist -
@@ -58,6 +51,7 @@ route.get('/user',(req,res)=>{
     })
 })
 
+// Todos Route
 
 route.get('/todos/:id',(req,res)=>{
     sqlDB.getTodos(req.params.id,(result) => {
@@ -87,5 +81,14 @@ route.put('/todos/:id',(req,res) => {
             else res.status(200).send(result.result)
         })
 })
+
+route.delete('/todos/:id',(req,res) => {
+    console.log("Body and params ",req.body,req.params)
+    sqlDB.deleteTodo(req.body.todoId,req.params.id,
+        (result)=>{
+            if(result.error) res.status(400).send(result);
+            else res.status(200).send(result.result)
+        })
+});
 
 exports.route= route;

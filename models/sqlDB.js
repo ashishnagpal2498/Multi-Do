@@ -13,7 +13,7 @@ const createUser = (name,cb) => {
             result: err,
             error: true
         });
-        else cb(fields);
+        else checkUser(name,cb);
         })
 };
 
@@ -95,6 +95,18 @@ const updateTodo = (done,id,userId,cb) => {
         })
 };
 
+const deleteTodo = (id,userId,cb) =>{
+    connection.query("delete from todos where id = ? AND userId = ? ", [id,userId],
+        (err,result) => {
+        if(err) cb({
+            error: true,
+            result: err,
+            message: "Cannot delete todo"
+        });
+          else getTodos(userId,cb);
+        })
+}
+
 exports = module.exports = {
-    getTodos,addTodo, createUser, checkUser, updateTodo
+    getTodos,addTodo, createUser, checkUser, updateTodo, deleteTodo
 };
