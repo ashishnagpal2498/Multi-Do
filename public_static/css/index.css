@@ -58,7 +58,7 @@
 /**/
 
 .introduction {
-    background-image: url("./todolist_background.jpg");
+    background-image: url("../assets/todolist_background.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;

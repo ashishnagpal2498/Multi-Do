@@ -32,11 +32,11 @@ function buttonClick(){
                     //Set the value into localStorage
                         localStorage.setItem('username',username);
                         localStorage.setItem('userId',data.result.id || data.result._id);
-                        window.location = './todolist.html';
+                        window.location = '../todolist.html';
                 }
                 else {
                     alert('User create successfully, Kindly login');
-                    window.location = "./login.html";
+                    window.location = "../login.html";
                 }
         })
         .fail(function (error) {

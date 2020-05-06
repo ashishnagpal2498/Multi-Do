@@ -94,7 +94,7 @@ function deleteItemConfirm(item,value){
 function logoutUser(){
     localStorage.removeItem("username");
     localStorage.removeItem("userId");
-    window.location = "./login.html"
+    window.location = "../login.html"
 }
 
 $(function () {

@@ -12,6 +12,10 @@
     letter-spacing: 1.5px;
     padding-left: 200px;
 }
+.sub2 span{
+    text-transform: uppercase;
+    font-style: oblique;
+}
 .user-icon {
     position: absolute;
     right: 1.5em;
