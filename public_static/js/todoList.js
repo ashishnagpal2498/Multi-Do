@@ -140,6 +140,7 @@ $(function () {
             loader.css("display","none");
             return true;
         }
+        let todoList = [];
         for(todo of todos)
         {
             let chechBox = $(` <input data-todoid = "${todo.id || todo._id}" onchange="setDone(this)" type="checkbox" >`)
@@ -153,8 +154,9 @@ $(function () {
                 </div>`);
             todoItem.prepend(chechBox);
             todoItem.append(deleteBtn);
-            todolistDiv.prepend(todoItem)
+            todoList.push(todoItem);
         }
+        todolistDiv.prepend(...todoList);
         loader.css("display","none")
     }
 
