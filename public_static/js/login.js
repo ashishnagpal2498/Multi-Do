@@ -20,7 +20,7 @@ function signUpLogin(tag){
         button.append('Sign Up')
     }
 }
-function buttonClick(){
+const buttonClick = () => {
     let username = $('#user').val();
     const db = localStorage.getItem('db');
     const loginOrSignUp = $('#loginSignup').attr('current-state');
@@ -70,3 +70,7 @@ $(() => {
     currentDb.empty();
   currentDb.append(db)
 })
+
+exports = module.exports = {
+    buttonClick
+}

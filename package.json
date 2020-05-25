@@ -16,5 +16,9 @@
     "mysql2": "^2.1.0",
     "sequelize": "^5.21.7",
     "uuid": "^7.0.3"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^7.1.2"
   }
 }
