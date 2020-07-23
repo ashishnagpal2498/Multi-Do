@@ -55,6 +55,8 @@ route.get('/todos/:id',(req,res)=>{
         {
             res.status(400).send(result)
         }
+        // returning array of results
+
         else res.status(200).send(result.result);
     })
 });

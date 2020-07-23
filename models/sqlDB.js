@@ -61,6 +61,11 @@ const getTodos = (userId,cb) => {
 };
 
 const addTodo = (object,cb) => {
+    if(!object.task) return cb({
+        error: true,
+        result: null,
+        message: "Cannot add todo"
+    })
     connection.query(`INSERT INTO todos(id,task,done,userId) values(?,?,?,?)`,
         [uuidv4(),object.task,object.done,object.userId] ,
         (err,result) => {

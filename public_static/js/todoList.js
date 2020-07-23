@@ -6,7 +6,10 @@ function getAlltodos(cb)
 {
     $.get(`/${db}/todos/${userId}`,"json")
         .done((data)=>{
+            console.log('Data -> ----',data);
+            console.log(Array.isArray(data));
             cb(data);
+
         })
         .fail((error)=>{
             alert(error.responseJSON.message);
